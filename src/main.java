@@ -25,7 +25,7 @@ public class main {
     public static Armor attacker_armor = new Armor(1, 0, 2, 1, 2, 1, 0, 10, 0, 0, 25, 12, 1, 0);
     public static Armor longcoat = new Armor(1, 0, 2, 1, 2, 2, 0, 0, -5, 0, 25, 10, 0, 5);
 
-    static Weapon attacking_weapon = falchion;
+    static Weapon attacker_weapon = falchion;
     static Armor defender_armor = longcoat;
     static Character defender = jesuskun;
     static Weapon defender_weapon = katana;
@@ -119,7 +119,7 @@ public class main {
         } else {
             System.out.println(combatResult);
             System.out.print("deal ");
-            System.out.println(calculateDamage(attacker, defender, attacking_weapon, defender_armor, combatResult));
+            System.out.println(calculateDamage(attacker, defender, attacker_weapon, defender_armor, combatResult));
         }
 
 //        boolean counterAttack = false;
@@ -132,12 +132,12 @@ public class main {
 //        if (combatResult > 30) {
 //            reportHit = true;
 //            counterAttack = false;
-//            if (attacking_weapon.attackType_primary == ARMOR_DAMAGE_TYPE_CUT) {
+//            if (attacker_weapon.attackType_primary == ARMOR_DAMAGE_TYPE_CUT) {
 //                combatResult = combatResult - (10 * defender_armor.armorType_cut);
 //                combatResult = (combatResult / 10) * 10;
 //
 //            }
-//            int weapon_damage = attacking_weapon.baseDamage + attacker.static_strength;
+//            int weapon_damage = attacker_weapon.baseDamage + attacker.static_strength;
 //            int damage = weapon_damage * combatResult;
 //        }
 //
@@ -191,7 +191,9 @@ public class main {
         System.out.print("new combat result");
         System.out.println(CombatResult);
         int damageModifier = CombatResult;
-        return ((int) (((double) damageModifier) * (attackWeapon.baseDamage + Attacker.static_strength)));
+        double damgmdfr = ((double) damageModifier);
+        damgmdfr = damgmdfr / 100;
+        return ((int) (damgmdfr * (attackWeapon.baseDamage + Attacker.static_strength)));
     }
 
 
