@@ -108,51 +108,56 @@ public class main {
                 System.out.println("you managed to hit them, but didn't do any damage");
                 System.out.println("YOU FAIL BITCH!...slightly less");
             } else {
-                System.out.print("deal ");
+                System.out.print("combatResult ");
+                System.out.println(counterCombatResult);
+                System.out.print("deal damage ");
                 System.out.println(calculateDamage(defender, attacker, defender_weapon, attacker_armor, counterCombatResult));
             }
 
-
-
-
+        } else if (combatResult < 30) {
+            System.out.println("you managed to hit them, but didn't do any damage");
+        } else {
+            System.out.println(combatResult);
+            System.out.print("deal ");
+            System.out.println(calculateDamage(attacker, defender, attacking_weapon, defender_armor, combatResult));
         }
 
-        boolean counterAttack = false;
-
-//        if (combatResult > 0 && combatResult < 30) {
+//        boolean counterAttack = false;
+//
+////        if (combatResult > 0 && combatResult < 30) {
+////            reportHit = true;
+////            counterAttack = false;
+////        }
+//
+//        if (combatResult > 30) {
 //            reportHit = true;
 //            counterAttack = false;
-//        }
-
-        if (combatResult > 30) {
-            reportHit = true;
-            counterAttack = false;
-            if (attacking_weapon.attackType_primary == ARMOR_DAMAGE_TYPE_CUT) {
-                combatResult = combatResult - (10 * defender_armor.armorType_cut);
-                combatResult = (combatResult / 10) * 10;
-
-            }
-            int weapon_damage = attacking_weapon.baseDamage + attacker.static_strength;
-            int damage = weapon_damage * combatResult;
-        }
-
+//            if (attacking_weapon.attackType_primary == ARMOR_DAMAGE_TYPE_CUT) {
+//                combatResult = combatResult - (10 * defender_armor.armorType_cut);
+//                combatResult = (combatResult / 10) * 10;
 //
-//
-//        if (combatResult < 0) {
-//            int counterAttackModifier = Math.abs(combatResult) / 10;
-//            counterAttackModifier = (counterAttack / 10) * 10;
-//            counterAttackModifier = counterAttackModifier * 5;
-//            System.out.print("roll again for counter: ");
-//            int defAttackRoll = scanner.nextInt();
-//            finalAttack = defAttackRoll + defender.static_attack + counterAttackModifier;
-//            System.out.print("and again for attacker (now defender): ");
-//            int attackerReroll = scanner.nextInt();
-//            finalDefense = attackerReroll + attacker.static_block;
-//            combatResult = finalAttack - finalDefense;
-//            System.out.println(combatResult);
+//            }
+//            int weapon_damage = attacking_weapon.baseDamage + attacker.static_strength;
+//            int damage = weapon_damage * combatResult;
 //        }
 //
-//        System.out.println();
+////
+////
+////        if (combatResult < 0) {
+////            int counterAttackModifier = Math.abs(combatResult) / 10;
+////            counterAttackModifier = (counterAttack / 10) * 10;
+////            counterAttackModifier = counterAttackModifier * 5;
+////            System.out.print("roll again for counter: ");
+////            int defAttackRoll = scanner.nextInt();
+////            finalAttack = defAttackRoll + defender.static_attack + counterAttackModifier;
+////            System.out.print("and again for attacker (now defender): ");
+////            int attackerReroll = scanner.nextInt();
+////            finalDefense = attackerReroll + attacker.static_block;
+////            combatResult = finalAttack - finalDefense;
+////            System.out.println(combatResult);
+////        }
+////
+////        System.out.println();
 
 
 
@@ -180,11 +185,12 @@ public class main {
 
     public static int calculateDamage(Character Attacker, Character Defender, Weapon attackWeapon, Armor defendArmor, int CombatResult) {
         CombatResult = roundDownTen(CombatResult - (10 * defendArmor.getDefenceByType(attackWeapon.attackType_primary)));
-        System.out.println(combatResult);
         if (CombatResult < 0) {
             CombatResult = 0;
         }
-        int damageModifier = combatResult;
+        System.out.print("new combat result");
+        System.out.println(CombatResult);
+        int damageModifier = CombatResult;
         return ((int) (((double) damageModifier) * (attackWeapon.baseDamage + Attacker.static_strength)));
     }
 
