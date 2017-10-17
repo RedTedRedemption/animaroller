@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by teddy on 10/13/2017.
  */
@@ -17,9 +19,17 @@ public class Weapon {
     public int armorTypeReduction;
     public int minimumStrength;
     public String comments_and_additional_effects;
+    public String name;
 
 
-    public Weapon(int Attack, int Defense, int BaseDamage, int Speed, int Fortitude, int Breakage, int Presence, int AttackType_Primary, int AttackType_Secondary, int MinimumStrength, int Quality) {
+    public static ArrayList<Weapon> weapons = new ArrayList<>();
+
+
+    public Weapon(String Name, int Attack, int Defense, int BaseDamage, int Speed, int Fortitude, int Breakage, int Presence, int AttackType_Primary, int AttackType_Secondary, int MinimumStrength, int Quality) {
+
+        weapons.add(this);
+
+        name = Name;
         attack = Attack;
         defense = Defense;
         baseDamage = BaseDamage;
@@ -93,6 +103,15 @@ public class Weapon {
         fortitude = fortitude + (quality * 2);
         armorTypeReduction = -quality / 5;
 
+    }
+
+    public static Weapon getWeapon(String Name) {
+        for (Weapon weapon : weapons) {
+            if (weapon.name.equals(Name)) {
+                return weapon;
+            }
+        }
+        return null;
     }
 
 

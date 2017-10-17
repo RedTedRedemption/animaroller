@@ -18,16 +18,16 @@ public class main {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static Character attacker = new Character(130, 90, 0, 90, 5, 0, 7, 40, 50, 50, 50, 40, 35, 130);
-    public static Character jesuskun = new Character(50, 0, 100, 95, 5, 10, 8, 30, 30, 30, 30, 30, 30, 80);
-    public static Weapon falchion = new Weapon(0, 0, 50, 0, 13, 3, 25, ARMOR_DAMAGE_TYPE_CUT, ARMOR_DAMAGE_TYPE_NONE, 5, 0);
-    public static Weapon katana = new Weapon(0, 0, 50, 0, 11, 3, 40, ARMOR_DAMAGE_TYPE_CUT, ARMOR_DAMAGE_TYPE_NONE, 5, 0);
-    public static Armor attacker_armor = new Armor(1, 0, 2, 1, 2, 1, 0, 10, 0, 0, 25, 12, 1, 0);
-    public static Armor longcoat = new Armor(1, 0, 2, 1, 2, 2, 0, 0, -5, 0, 25, 10, 0, 5);
+
+    public static Weapon falchion = new Weapon("falchion", 0, 0, 50, 0, 13, 3, 25, ARMOR_DAMAGE_TYPE_CUT, ARMOR_DAMAGE_TYPE_NONE, 5, 0);
+    public static Weapon katana = new Weapon("katana", 0, 0, 50, 0, 11, 3, 40, ARMOR_DAMAGE_TYPE_CUT, ARMOR_DAMAGE_TYPE_NONE, 5, 0);
+    public static Armor attacker_armor = new Armor("attacker armor", 1, 0, 2, 1, 2, 1, 0, 10, 0, 0, 25, 12, 1, 0);
+    public static Armor longcoat = new Armor("longcoat", 1, 0, 2, 1, 2, 2, 0, 0, -5, 0, 25, 10, 0, 5);
 
     static Weapon attacker_weapon = falchion;
     static Armor defender_armor = longcoat;
-    static Character defender = jesuskun;
+
+
     static Weapon defender_weapon = katana;
     static Armor attackerArmor = attacker_armor;
     static int counterAttackModifier;
@@ -41,86 +41,148 @@ public class main {
     static int combatResult;
     static int finalAttack;
 
+    static boolean running = true;
+
     //IF COMBAT SITUATION ATT == NULL, PROBABLY MEANS NOT POSSIBLE OR SOME SHIT
 
     public static void main(String[] args) {
 
+        Parser.parse();
 
-        System.out.print("attack roll: ");
-        int attackRoll = scanner.nextInt();
-        System.out.print("defend roll: ");
-        int defendRoll = scanner.nextInt();
+        while (running) {
+            System.out.print("> ");
+            switch (scanner.next()) {
+                case "listplayers":
+                    System.out.println("Characters currently loaded into the tool:");
+                    for (Character player : Character.characters) {
+                        System.out.println(player.name);
+                    }
+                case "attack":
+                    Boolean validCharacter = false;
+                    String attackerName;
+                    String defenderName;
+                    Character attacker = new Character();
+                    Character defender = new Character();
 
-        finalAttack = attacker.static_attack + attackRoll;
+                    while (!validCharacter) {
+                        System.out.print("Enter attacking character's name: ");
+                        attackerName = scanner.next();
+                        for (Character character : Character.characters) {
+                            if (character.name.equals(attackerName)) {
+                                attacker = Character.getCharacter(attackerName);
+                                validCharacter = true;
+                                break;
+                            } else {
+                                System.out.println(attackerName + " does not appear to be loaded into the tool. Check the characters.json file");
+                            }
+                        }
+                    }
 
-        System.out.print("dodge or block? ");
-        boolean choseDodge = scanner.next().toLowerCase().contains("dodge");
 
 
-        if (choseDodge) {
-            finalDefense = defender.static_dodge + defendRoll;
-            System.out.print("final defense: ");
-            System.out.println(finalDefense);
-        } else {
-            finalDefense = defender.static_block + defendRoll;
-            System.out.print("final defense: ");
-            System.out.println(finalDefense);
-        }
+                    validCharacter = false;
 
-        combatResult = finalAttack - finalDefense;
-        System.out.print("combatResult: ");
-        System.out.println(combatResult);
+                    while (!validCharacter) {
+                        System.out.print("Enter attacking character's name: ");
+                        defenderName = scanner.next();
+                        for (Character character : Character.characters) {
+                            if (character.name.equals(defenderName)) {
+                                defender = Character.getCharacter(defenderName);
+                                validCharacter = true;
+                                break;
+                            } else {
+                                System.out.println(defenderName + " does not appear to be loaded into the tool. Check the characters.json file");
+                            }
+                        }
+                    }
 
-        //determine if we should counterattack
 
-        if (combatResult < 0) {
-            //counterattack
-            System.out.println("counterattack: SURPRISE MOTHERFUCKA!!!");
 
-            counterAttackModifier =  roundDownTen(Math.abs(combatResult) / 10) * 5;
 
-            System.out.print("counterAttackModifier ");
-            System.out.println(counterAttackModifier);
+                    System.out.print("attack roll: ");
+                    int attackRoll = scanner.nextInt();
+                    System.out.print("defend roll: ");
+                    int defendRoll = scanner.nextInt();
 
-            System.out.print("dodge or block? ");
-            choseDodge = scanner.next().contains("dodge");
+                    finalAttack = attacker.static_attack + attackRoll;
 
-            System.out.print("roll again for defender's counterattack: ");
-            counterAttackRoll = scanner.nextInt();
+                    System.out.print("dodge or block? ");
+                    boolean choseDodge = scanner.next().toLowerCase().contains("dodge");
 
-            finalCounterAttack = counterAttackRoll + defender.static_attack + counterAttackModifier;
 
-            System.out.print("roll again for attacker's defense against the counterattack: ");
-            counterDefendRoll = scanner.nextInt();
+                    if (choseDodge) {
+                        finalDefense = defender.static_dodge + defendRoll;
+                        System.out.print("final defense: ");
+                        System.out.println(finalDefense);
+                    } else {
+                        finalDefense = defender.static_block + defendRoll;
+                        System.out.print("final defense: ");
+                        System.out.println(finalDefense);
+                    }
 
-            if (choseDodge) {
-                finalCounterDefense = counterDefendRoll + attacker.static_dodge;
-            } else {
-                finalCounterDefense = counterDefendRoll + attacker.static_block;
+                    combatResult = finalAttack - finalDefense;
+                    System.out.print("combatResult: ");
+                    System.out.println(combatResult);
+
+                    //determine if we should counterattack
+
+                    if (combatResult < 0) {
+                        //counterattack
+                        System.out.println("counterattack: SURPRISE MOTHERFUCKA!!!");
+
+                        counterAttackModifier =  roundDownTen(Math.abs(combatResult) / 10) * 5;
+
+                        System.out.print("counterAttackModifier ");
+                        System.out.println(counterAttackModifier);
+
+                        System.out.print("dodge or block? ");
+                        choseDodge = scanner.next().contains("dodge");
+
+                        System.out.print("roll again for defender's counterattack: ");
+                        counterAttackRoll = scanner.nextInt();
+
+                        finalCounterAttack = counterAttackRoll + defender.static_attack + counterAttackModifier;
+
+                        System.out.print("roll again for attacker's defense against the counterattack: ");
+                        counterDefendRoll = scanner.nextInt();
+
+                        if (choseDodge) {
+                            finalCounterDefense = counterDefendRoll + attacker.static_dodge;
+                        } else {
+                            finalCounterDefense = counterDefendRoll + attacker.static_block;
+                        }
+
+                        counterCombatResult = finalCounterAttack - finalCounterDefense;
+
+                        if (counterCombatResult < 0) {
+                            System.out.println("YOU FAIL BITCH!");
+                        } else if (counterCombatResult < 30) {
+                            reportHit = true;
+                            System.out.println("you managed to hit them, but didn't do any damage");
+                            System.out.println("YOU FAIL BITCH!...slightly less");
+                        } else {
+                            System.out.print("combatResult ");
+                            System.out.println(counterCombatResult);
+                            System.out.print("deal damage ");
+                            System.out.println(calculateDamage(defender, attacker, defender_weapon, attacker_armor, counterCombatResult));
+                        }
+
+                    } else if (combatResult < 30) {
+                        System.out.println("you managed to hit them, but didn't do any damage");
+                    } else {
+                        System.out.println(combatResult);
+                        System.out.print("deal ");
+                        System.out.println(calculateDamage(attacker, defender, attacker_weapon, defender_armor, combatResult));
+                    }
+
             }
 
-            counterCombatResult = finalCounterAttack - finalCounterDefense;
 
-            if (counterCombatResult < 0) {
-                System.out.println("YOU FAIL BITCH!");
-            } else if (counterCombatResult < 30) {
-                reportHit = true;
-                System.out.println("you managed to hit them, but didn't do any damage");
-                System.out.println("YOU FAIL BITCH!...slightly less");
-            } else {
-                System.out.print("combatResult ");
-                System.out.println(counterCombatResult);
-                System.out.print("deal damage ");
-                System.out.println(calculateDamage(defender, attacker, defender_weapon, attacker_armor, counterCombatResult));
-            }
 
-        } else if (combatResult < 30) {
-            System.out.println("you managed to hit them, but didn't do any damage");
-        } else {
-            System.out.println(combatResult);
-            System.out.print("deal ");
-            System.out.println(calculateDamage(attacker, defender, attacker_weapon, defender_armor, combatResult));
         }
+
+
+
 
 //        boolean counterAttack = false;
 //

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by teddy on 10/13/2017.
  */
@@ -26,11 +28,16 @@ public class Armor {
     public int movementPenalty;
     public int quality;
     public String comments_and_additional_effects;
+    public String name;
+
+    static ArrayList<Armor> armors = new ArrayList<>();
 
     public int[] defenses = new int[7];
 
-    public Armor(int ArmorType_cut, int ArmorType_impact, int ArmorType_thrust, int ArmorType_heat, int ArmorType_electricity, int ArmorType_cold, int ArmorType_energy, int ArmorRequirement, int NaturalPenalty, int Initiative, int Presence, int Fortitude, int MovementPenalty, int Quality) {
+    public Armor(String Name, int ArmorType_cut, int ArmorType_impact, int ArmorType_thrust, int ArmorType_heat, int ArmorType_electricity, int ArmorType_cold, int ArmorType_energy, int ArmorRequirement, int NaturalPenalty, int Initiative, int Presence, int Fortitude, int MovementPenalty, int Quality) {
 
+        name = Name;
+        armors.add(this);
         armorType_cut = ArmorType_cut + (quality / 5);
         armorType_impact = ArmorType_impact + (quality / 5);
         armorType_thrust = ArmorType_thrust + (quality / 5);
@@ -92,6 +99,15 @@ public class Armor {
 
     public int getDefenceByType(int damageType) {
         return defenses[damageType];
+    }
+
+    public static Armor getArmor(String Name) {
+        for (Armor armor : armors) {
+            if (armor.name.equals(Name)) {
+                return armor;
+            }
+        }
+        return null;
     }
 
 

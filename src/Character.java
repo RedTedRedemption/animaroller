@@ -30,6 +30,7 @@ public class Character {
     public int static_resist_magic;
     public int static_resist_psychic;
     public int static_lifePoints;
+    public String name;
 
 
 
@@ -39,6 +40,8 @@ public class Character {
     public int timesAttacked;
     public int timesRecievedAttack;
     public ArrayList<CombatSituation> combatSituations = new ArrayList<>();
+
+    public static ArrayList<Character> characters = new ArrayList<>();
 
     public static final CombatSituation none = new CombatSituation(0, 0, 0, 0, 0);
     public static final CombatSituation flanked = new CombatSituation(-10, -30, -30, 0, 0);
@@ -64,9 +67,15 @@ public class Character {
     public static final CombatSituation adversary_mediumOrLarger = new CombatSituation(0, 0, 0, 0, 0);
 
 
+    public Character() { //empty constructor used to suppress "may not have been initialized errors"
 
-    public Character(int attack, int block, int dodge, int initiative, int strength, int wearArmor, int movement, int resist_presence, int resist_physical, int resist_disease, int resist_poison, int resist_magic, int resist_psychic, int lifePoints) {
+    }
 
+
+    public Character(String Name, int attack, int block, int dodge, int initiative, int strength, int wearArmor, int movement, int resist_presence, int resist_physical, int resist_disease, int resist_poison, int resist_magic, int resist_psychic, int lifePoints) {
+
+        name = Name;
+        characters.add(this);
         static_attack = attack;
         static_block = block;
         static_dodge = dodge;
@@ -89,5 +98,15 @@ public class Character {
     public void damage(int damage) {
         life = life - damage;
     }
+
+    public static Character getCharacter(String Name) {
+        for (Character character : characters) {
+            if (character.name.equals(Name)) {
+                return character;
+            }
+        }
+        return null;
+    }
+
 
 }
