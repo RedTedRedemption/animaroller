@@ -31,6 +31,8 @@ public class Character {
     public int static_resist_psychic;
     public int static_lifePoints;
     public String name;
+    public Weapon weapon;
+    public Armor armor;
 
 
 
@@ -72,7 +74,7 @@ public class Character {
     }
 
 
-    public Character(String Name, int attack, int block, int dodge, int initiative, int strength, int wearArmor, int movement, int resist_presence, int resist_physical, int resist_disease, int resist_poison, int resist_magic, int resist_psychic, int lifePoints) {
+    public Character(String Name, int attack, int block, int dodge, int initiative, int strength, int wearArmor, int movement, int resist_presence, int resist_physical, int resist_disease, int resist_poison, int resist_magic, int resist_psychic, int lifePoints, String weaponName, String armorName) {
 
         name = Name;
         characters.add(this);
@@ -92,6 +94,9 @@ public class Character {
         static_lifePoints = lifePoints;
 
         life = lifePoints;
+
+        weapon = Weapon.getWeapon(weaponName);
+        armor = Armor.getArmor(armorName);
 
     }
 
