@@ -46,13 +46,13 @@ public class Armor {
         armorType_cold = ArmorType_cold + (quality / 5);
         armorType_energy = ArmorType_energy + (quality / 5);
 
-        defenses[application.ARMOR_DAMAGE_TYPE_CUT] = armorType_cut;
-        defenses[application.ARMOR_DAMAGE_TYPE_IMPACT] = armorType_impact;
-        defenses[application.ARMOR_DAMAGE_TYPE_THRUST] = armorType_thrust;
-        defenses[application.ARMOR_DAMAGE_TYPE_HEAT] = armorType_heat;
-        defenses[application.ARMOR_DAMAGE_TYPE_ELECTRICITY] = armorType_electricity;
-        defenses[application.ARMOR_DAMAGE_TYPE_COLD] = armorType_cold;
-        defenses[application.ARMOR_DAMAGE_TYPE_ENERGY] = armorType_energy;
+        defenses[main.ARMOR_DAMAGE_TYPE_CUT] = armorType_cut;
+        defenses[main.ARMOR_DAMAGE_TYPE_IMPACT] = armorType_impact;
+        defenses[main.ARMOR_DAMAGE_TYPE_THRUST] = armorType_thrust;
+        defenses[main.ARMOR_DAMAGE_TYPE_HEAT] = armorType_heat;
+        defenses[main.ARMOR_DAMAGE_TYPE_ELECTRICITY] = armorType_electricity;
+        defenses[main.ARMOR_DAMAGE_TYPE_COLD] = armorType_cold;
+        defenses[main.ARMOR_DAMAGE_TYPE_ENERGY] = armorType_energy;
 
         armorRequirement = ArmorRequirement;
         naturalPenalty = NaturalPenalty;
