@@ -19,12 +19,11 @@ public class main {
     static Scanner scanner = new Scanner(System.in);
 
 
-    public static Weapon falchion = new Weapon("falchion", 0, 0, 50, 0, 13, 3, 25, ARMOR_DAMAGE_TYPE_CUT, ARMOR_DAMAGE_TYPE_NONE, 5, 0);
     public static Weapon katana = new Weapon("katana", 0, 0, 50, 0, 11, 3, 40, ARMOR_DAMAGE_TYPE_CUT, ARMOR_DAMAGE_TYPE_NONE, 5, 0);
     public static Armor attacker_armor = new Armor("attacker armor", 1, 0, 2, 1, 2, 1, 0, 10, 0, 0, 25, 12, 1, 0);
     public static Armor longcoat = new Armor("longcoat", 1, 0, 2, 1, 2, 2, 0, 0, -5, 0, 25, 10, 0, 5);
 
-    static Weapon attacker_weapon = falchion;
+
     static Armor defender_armor = longcoat;
 
 
@@ -84,6 +83,8 @@ public class main {
                     Boolean validCharacter = false;
                     String attackerName;
                     String defenderName;
+
+                    //suppresses a "may not be initialized" error
                     Character attacker = new Character();
                     Character defender = new Character();
 
@@ -101,12 +102,10 @@ public class main {
                         }
                     }
 
-
-
                     validCharacter = false;
 
                     while (!validCharacter) {
-                        System.out.print("Enter attacking character's name: ");
+                        System.out.print("Enter defending character's name: ");
                         defenderName = scanner.next();
                         for (Character character : Character.characters) {
                             if (character.name.equals(defenderName)) {
@@ -195,7 +194,7 @@ public class main {
                     } else {
                         System.out.println(combatResult);
                         System.out.print("deal ");
-                        System.out.println(calculateDamage(attacker, defender, attacker_weapon, defender_armor, combatResult));
+                        System.out.println(calculateDamage(attacker, defender, attacker.weapon, defender_armor, combatResult));
                     }
 
                     break;

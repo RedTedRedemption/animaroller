@@ -18,6 +18,8 @@ public class Parser {
     public static JSONParser parser;
     public static JSONObject characterData;
     public static JSONArray characters;
+    public static JSONArray armors;
+    public static JSONArray weapons;
 
     public static void parse() {
 
@@ -27,22 +29,57 @@ public class Parser {
         //PARSE WEAPONS
 
         try {
-            characters = (JSONArray) parser.parse(new FileReader(new File("dungeon/characters.json").getAbsolutePath()));
+            weapons = (JSONArray) parser.parse(new FileReader(new File("dungeon/weapons.json").getAbsolutePath()));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+
+        for (Object weap : weapons) {
+
+            JSONObject weapon = (JSONObject) weap;
+
+            int attack = Integer.parseInt(weapon.get("attack").toString());
+            int defense = Integer.parseInt(weapon.get("defense").toString());
+            int baseDamage = Integer.parseInt(weapon.get("baseDamage").toString());
+            int speed = Integer.parseInt(weapon.get("speed").toString());
+            int fortitude = Integer.parseInt(weapon.get("fortitude").toString());
+            int breakage = Integer.parseInt(weapon.get("breakage").toString());
+            int presence = Integer.parseInt(weapon.get("presence").toString());
+            int attackType_primary = Integer.parseInt(weapon.get("attackType_primary").toString());
+            int attackType_secondary = Integer.parseInt(weapon.get("attackType_secondary").toString());
+            int quality = Integer.parseInt(weapon.get("quality").toString());
+            boolean twoHanded;
+            try {
+                twoHanded = Boolean.parseBoolean(weapon.get("twoHanded").toString());
+            } catch (java.lang.NullPointerException e) {
+                twoHanded = false;
+            }
+            int armorTypeReduction;
+            try {
+                armorTypeReduction = Integer.parseInt(weapon.get("armorTypeReduction").toString());
+            } catch (java.lang.NullPointerException e) {
+                armorTypeReduction = 0;
+            }
+            int minimumStrength = Integer.parseInt(weapon.get("minimumStrength").toString());
+            String name = (String) weapon.get("name");
+
+            new Weapon(name, attack, defense, baseDamage, speed, fortitude, breakage, presence, attackType_primary, attackType_secondary, minimumStrength, quality);
+
+
+
         }
 
         //PARSE ARMOR
 
-        try {
-            characters = (JSONArray) parser.parse(new FileReader(new File("dungeon/characters.json").getAbsolutePath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            characters = (JSONArray) parser.parse(new FileReader(new File("dungeon/armor.json").getAbsolutePath()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
         //PARSE CHARACTERS
 
