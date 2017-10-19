@@ -19,7 +19,7 @@
     "resist_Psychic":30,
     "lifePoints":80,
     "weapon":"falchion",
-    "armor":"testArmor"
+    "armor":"longcoat"
 
 
   },
@@ -42,7 +42,7 @@
     "resist_Psychic":30,
     "lifePoints":80,
     "weapon":"falchion",
-    "armor":"testArmor2"
+    "armor":"longcoat"
 
 
   }

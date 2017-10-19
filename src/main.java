@@ -19,16 +19,11 @@ public class main {
     static Scanner scanner = new Scanner(System.in);
 
 
-    public static Weapon katana = new Weapon("katana", 0, 0, 50, 0, 11, 3, 40, ARMOR_DAMAGE_TYPE_CUT, ARMOR_DAMAGE_TYPE_NONE, 5, 0);
-    public static Armor attacker_armor = new Armor("attacker armor", 1, 0, 2, 1, 2, 1, 0, 10, 0, 0, 25, 12, 1, 0);
-    public static Armor longcoat = new Armor("longcoat", 1, 0, 2, 1, 2, 2, 0, 0, -5, 0, 25, 10, 0, 5);
+   // public static Weapon katana = new Weapon("katana", 0, 0, 50, 0, 11, 3, 40, ARMOR_DAMAGE_TYPE_CUT, ARMOR_DAMAGE_TYPE_NONE, 5, 0);
+   // public static Armor attacker_armor = new Armor("attacker armor", 1, 0, 2, 1, 2, 1, 0, 10, 0, 0, 25, 12, 1, 0);
+   // public static Armor longcoat = new Armor("longcoat", 1, 0, 2, 1, 2, 2, 0, 0, -5, 0, 25, 10, 0, 5);
 
 
-    static Armor defender_armor = longcoat;
-
-
-    static Weapon defender_weapon = katana;
-    static Armor attackerArmor = attacker_armor;
     static int counterAttackModifier;
     static int finalDefense;
     static boolean reportHit;
@@ -63,6 +58,16 @@ public class main {
 
                 case "listweapons":
                     System.out.println("Weapons currently loaded into the tool:");
+                    for (Weapon weapon : Weapon.weapons) {
+                        System.out.println(weapon.name);
+                    }
+                    break;
+
+                case "listarmor":
+                    System.out.println("Armor currently loaded into the tool:");
+                    for (Armor armor : Armor.armors) {
+                        System.out.println(armor.name);
+                    }
 
                 case "reload":
                     System.out.print("reloading armor, weapons, and characters from dungeon json files...");
@@ -72,9 +77,11 @@ public class main {
 
                 case "help":
                     System.out.println("listcharacters - output a list of all characters loaded into the tool");
+                    System.out.println("listweapons - output a list of all weapons loaded into the tool");
+                    System.out.println("listarmor - output a list of all armor loaded into the tool");
                     System.out.println("reload - reload characters, armor, and weapons from the json files stored in ./dungeon");
                     System.out.println("attack - start an attack sequence");
-                    System.out.println("about - search for information about a weapon, armor, or character");
+                    System.out.println("about - search for information about a weapon, armor, or character -- NOT FULLY IMPLEMENTED YET");
                     System.out.println("help - show this message");
                     System.out.println("exit - exit the program, obviously");
                     break;
@@ -275,7 +282,7 @@ public class main {
                            // System.out.print("combatResult ");
                            // System.out.println(counterCombatResult);
                             System.out.print("deal ");
-                            System.out.print(calculateDamage(defender, attacker, defender_weapon, attacker_armor, counterCombatResult));
+                            System.out.print(calculateDamage(defender, attacker, defender.weapon, attacker.armor, counterCombatResult));
                             System.out.print(" damage to ");
                             System.out.println(attackerName);
                         }
@@ -285,7 +292,7 @@ public class main {
                     } else {
                         System.out.println(combatResult);
                         System.out.print("deal ");
-                        System.out.print(calculateDamage(attacker, defender, attacker.weapon, defender_armor, combatResult));
+                        System.out.print(calculateDamage(attacker, defender, attacker.weapon, defender.armor, combatResult));
                         System.out.print(" damage to ");
                         System.out.println(defenderName);
                     }

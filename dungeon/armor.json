@@ -1,7 +1,22 @@
 [
 
   {
-    "name":
+    "name":"longcoat",
+    "armorType_cut":1,
+    "armorType_impact":0,
+    "armorType_thrust":2,
+    "armorType_heat":1,
+    "armorType_electricity":2,
+    "armorType_cold":2,
+    "armorType_energy":0,
+    "armorRequirement":0,
+    "naturalPenalty":-5,
+    "initiative":0,
+    "presence":25,
+    "fortitude":10,
+    "movementPenalty":0,
+    "quality":5
+
   }
 
 ]

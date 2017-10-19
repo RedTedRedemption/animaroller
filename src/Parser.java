@@ -69,7 +69,8 @@ public class Parser {
             int minimumStrength = Integer.parseInt(weapon.get("minimumStrength").toString());
             String name = (String) weapon.get("name");
 
-            new Weapon(name, attack, defense, baseDamage, speed, fortitude, breakage, presence, attackType_primary, attackType_secondary, minimumStrength, quality);
+            new Weapon(name, attack, defense, baseDamage, speed, fortitude, breakage, presence, attackType_primary,
+                       attackType_secondary, minimumStrength, quality);
 
 
 
@@ -77,13 +78,41 @@ public class Parser {
 
         //PARSE ARMOR
 
-//        try {
-//            characters = (JSONArray) parser.parse(new FileReader(new File("dungeon/armor.json").getAbsolutePath()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            armors = (JSONArray) parser.parse(new FileReader(new File("dungeon/armor.json").getAbsolutePath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        for (Object arm : armors) {
+
+            JSONObject armor = (JSONObject) arm;
+
+            int armorType_cut = Integer.parseInt(armor.get("armorType_cut").toString());
+            int armorType_impact = Integer.parseInt(armor.get("armorType_impact").toString());
+            int armorType_thrust = Integer.parseInt(armor.get("armorType_thrust").toString());
+            int armorType_heat = Integer.parseInt(armor.get("armorType_heat").toString());
+            int armorType_electricity = Integer.parseInt(armor.get("armorType_electricity").toString());
+            int armorType_cold = Integer.parseInt(armor.get("armorType_cold").toString());
+            int armorType_energy = Integer.parseInt(armor.get("armorType_energy").toString());
+            int armorRequirement = Integer.parseInt(armor.get("armorRequirement").toString());
+            int naturalPenalty = Integer.parseInt(armor.get("naturalPenalty").toString());
+            int initiative = Integer.parseInt(armor.get("initiative").toString());
+            int presence = Integer.parseInt(armor.get("presence").toString());
+            int fortitude = Integer.parseInt(armor.get("fortitude").toString());
+            int movementPenalty = Integer.parseInt(armor.get("movementPenalty").toString());
+            int quality = Integer.parseInt(armor.get("quality").toString());
+            String comments_and_additional_effects;
+            String name = (String) armor.get("name");
+
+            new Armor(name, armorType_cut, armorType_impact, armorType_thrust, armorType_heat, armorType_electricity,
+                      armorType_cold, armorType_energy, armorRequirement, naturalPenalty, initiative, presence,
+                      fortitude, movementPenalty, quality);
+
+
+        }
 
         //PARSE CHARACTERS
 
@@ -121,7 +150,10 @@ public class Parser {
             String armorName = (String) character.get("armor");
 
 
-            new Character(name, static_attack, static_block, static_dodge, static_initiative, static_strength, static_wearArmor, static_movement, static_resist_presence, static_resist_physical, static_resist_disease, static_resist_poison, static_resist_magic, static_resist_psychic, static_lifePoints, weaponName, armorName);
+            new Character(name, static_attack, static_block, static_dodge, static_initiative, static_strength,
+                          static_wearArmor, static_movement, static_resist_presence, static_resist_physical,
+                          static_resist_disease, static_resist_poison, static_resist_magic, static_resist_psychic,
+                          static_lifePoints, weaponName, armorName);
 
 
         }
