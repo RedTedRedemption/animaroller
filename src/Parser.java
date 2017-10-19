@@ -23,6 +23,10 @@ public class Parser {
 
     public static void parse() {
 
+        Character.characters.clear();
+        Armor.armors.clear();
+        Weapon.weapons.clear();
+
         parser = new JSONParser();
 
 

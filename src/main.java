@@ -61,6 +61,9 @@ public class main {
                     }
                     break;
 
+                case "listweapons":
+                    System.out.println("Weapons currently loaded into the tool:");
+
                 case "reload":
                     System.out.print("reloading armor, weapons, and characters from dungeon json files...");
                     Parser.parse();
@@ -71,9 +74,71 @@ public class main {
                     System.out.println("listcharacters - output a list of all characters loaded into the tool");
                     System.out.println("reload - reload characters, armor, and weapons from the json files stored in ./dungeon");
                     System.out.println("attack - start an attack sequence");
+                    System.out.println("about - search for information about a weapon, armor, or character");
                     System.out.println("help - show this message");
                     System.out.println("exit - exit the program, obviously");
                     break;
+
+
+//                ublic int attack;
+//                public int defense;
+//                public int baseDamage;
+//                public int speed;
+//                public int fortitude;
+//                public int breakage;
+//                public int presence;
+//                public int attackType_primary;
+//                public int attackType_secondary;
+//                public int quality;
+//                public boolean twoHanded = false;
+//                public int armorTypeReduction;
+//                public int minimumStrength;
+//                public String comments_and_additional_effects;
+//                public String name;
+
+                case "about":
+                    System.out.print("name: ");
+                    String searchTerm = scanner.next();
+                    for (Weapon weapon: Weapon.weapons) {
+                        if (weapon.name.contains(searchTerm)) {
+                            System.out.println("Weapon " + searchTerm + ":");
+                            System.out.print("Attack: ");
+                            System.out.println(weapon.attack);
+                            System.out.print("Defense");
+                            System.out.println(weapon.defense);
+                            System.out.print("Base Damage: ");
+                            System.out.println(weapon.baseDamage);
+                            System.out.print("Speed: ");
+                            System.out.println(weapon.speed);
+                            System.out.print("Fortitude: ");
+                            System.out.println(weapon.fortitude);
+                            System.out.print("Breakage: ");
+                            System.out.println(weapon.breakage);
+                            System.out.print("Presence: ");
+                            System.out.println(weapon.presence);
+                            System.out.println("I'm to lazy to write the code to make this more readable 'cause it involves a lot of typing. Here are the integer ids for the damage types:");
+                            System.out.print("Primary Damage Type: ");
+                            System.out.println(weapon.attackType_primary);
+                            System.out.print("Secondary Damage Type: ");
+                            System.out.println(weapon.attackType_secondary);
+                            System.out.print("Quality: ");
+                            System.out.println(weapon.quality);
+                            System.out.print("Two Handed: ");
+                            System.out.println(weapon.twoHanded);
+                            System.out.print("Armor Type Reduction: ");
+                            System.out.println(weapon.armorTypeReduction);
+                            System.out.print("Minimum Strength: ");
+                            System.out.println(weapon.minimumStrength);
+                            System.out.println("Comments and additional effects: ");
+                            System.out.println(weapon.comments_and_additional_effects);
+
+
+
+                        }
+                    }
+
+                    break;
+
 
                 case "exit":
                     System.exit(0);
@@ -81,8 +146,8 @@ public class main {
 
                 case "attack":
                     Boolean validCharacter = false;
-                    String attackerName;
-                    String defenderName;
+                    String attackerName = "";
+                    String defenderName = "";
 
                     //suppresses a "may not be initialized" error
                     Character attacker = new Character();
@@ -97,10 +162,16 @@ public class main {
                                 validCharacter = true;
                                 break;
                             }
-                            System.out.println(attackerName + " does not appear to be loaded into the tool. Check the characters.json file");
-
                         }
+
+                        if (validCharacter) {
+                            break;
+                        }
+
+                        System.out.println(attackerName + " does not appear to be loaded into the tool. Check the characters.json file");
+
                     }
+
 
                     validCharacter = false;
 
@@ -113,10 +184,28 @@ public class main {
                                 validCharacter = true;
                                 break;
                             }
-                            System.out.println(defenderName + " does not appear to be loaded into the tool. Check the characters.json file");
                         }
 
+                        if (validCharacter) {
+                            break;
+                        }
+                        System.out.println(defenderName + " does not appear to be loaded into the tool. Check the characters.json file");
                     }
+
+
+
+//                    while (!validCharacter) {
+//                        System.out.print("Enter defending character's name: ");
+//                        defenderName = scanner.next();
+//                        for (Character character : Character.characters) {
+//                            if (character.name.equals(defenderName)) {
+//                                defender = Character.getCharacter(defenderName);
+//                                validCharacter = true;
+//                                break;
+//                            }
+//                            System.out.println(defenderName + " does not appear to be loaded into the tool. Check the characters.json file");
+//                        }
+//                    }
 
 
 
@@ -185,8 +274,10 @@ public class main {
                         } else {
                            // System.out.print("combatResult ");
                            // System.out.println(counterCombatResult);
-                            System.out.print("deal damage ");
-                            System.out.println(calculateDamage(defender, attacker, defender_weapon, attacker_armor, counterCombatResult));
+                            System.out.print("deal ");
+                            System.out.print(calculateDamage(defender, attacker, defender_weapon, attacker_armor, counterCombatResult));
+                            System.out.print(" damage to ");
+                            System.out.println(attackerName);
                         }
 
                     } else if (combatResult < 30) {
@@ -194,7 +285,9 @@ public class main {
                     } else {
                         System.out.println(combatResult);
                         System.out.print("deal ");
-                        System.out.println(calculateDamage(attacker, defender, attacker.weapon, defender_armor, combatResult));
+                        System.out.print(calculateDamage(attacker, defender, attacker.weapon, defender_armor, combatResult));
+                        System.out.print(" damage to ");
+                        System.out.println(defenderName);
                     }
 
                     break;
@@ -252,7 +345,7 @@ public class main {
 
     }
 
-    public int additionalDefensePenalty(int numberOfAttacks) {
+    public static int additionalDefensePenalty(int numberOfAttacks) {
         if (numberOfAttacks >= 5) {
             return -90;
         } else if (numberOfAttacks == 2) {
