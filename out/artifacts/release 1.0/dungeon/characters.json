@@ -1,0 +1,50 @@
+[
+
+
+  {
+    "type":"playerCharacter",
+    "name":"jesuskun",
+    "attack":50,
+    "block":0,
+    "dodge":100,
+    "initiative":95,
+    "strength":5,
+    "wearArmor":10,
+    "movement":8,
+    "resist_Presence":30,
+    "resist_Physical":30,
+    "resist_Disease":30,
+    "resist_Poison":30,
+    "resist_Magic":30,
+    "resist_Psychic":30,
+    "lifePoints":80,
+    "weapon":"katana",
+    "armor":"testArmor"
+
+
+  },
+
+  {
+    "type":"playerCharacter",
+    "name":"jesuskun2",
+    "attack":50,
+    "block":0,
+    "dodge":100,
+    "initiative":95,
+    "strength":5,
+    "wearArmor":10,
+    "movement":8,
+    "resist_Presence":30,
+    "resist_Physical":30,
+    "resist_Disease":30,
+    "resist_Poison":30,
+    "resist_Magic":30,
+    "resist_Psychic":30,
+    "lifePoints":80,
+    "weapon":"falchion",
+    "armor":"testArmor2"
+
+
+  }
+
+]
